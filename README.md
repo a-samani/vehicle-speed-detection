@@ -1,4 +1,7 @@
 <h1>Vehicle Speed Detection </h1>
+
+<h3> to use this model first take a screenshot of your video and use dashboard to cover the unuseful side of the video write number and then change the code with your number </h3>
+
 <ul>
 <li>This is a python script to detect speed of multiple vehicles on multi-lane highways.</li>
 <li>It uses Haar Cascade Classifier to detect vehicles in the every nth frame.</li>
