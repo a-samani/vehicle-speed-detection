@@ -9,14 +9,14 @@ import numpy as np
 carCascade = cv2.CascadeClassifier('files/HaarCascadeClassifier.xml')
 
 #TAKE VIDEO---------------------------------------------------------------------
-video = cv2.VideoCapture('files/videoTest.mp4')
+video = cv2.VideoCapture('files/output1.mp4')
 
-WIDTH = 1280 #WIDTH OF VIDEO FRAME
-HEIGHT = 720 #HEIGHT OF VIDEO FRAME
-cropBegin = 240 #CROP VIDEO FRAME FROM THIS POINT
-mark1 = 120 #MARK TO START TIMER
-mark2 = 360 #MARK TO END TIMER
-markGap = 15 #DISTANCE IN METRES BETWEEN THE MARKERS
+WIDTH = 1920  #WIDTH OF VIDEO FRAME
+HEIGHT = 1080 #HEIGHT OF VIDEO FRAME
+cropBegin = 50 #CROP VIDEO FRAME FROM THIS POINT
+mark1 = 250 #MARK TO START TIMER
+mark2 = 550 #MARK TO END TIMER
+markGap = 20 #DISTANCE IN METRES BETWEEN THE MARKERS
 fpsFactor = 3 #TO COMPENSATE FOR SLOW PROCESSING
 speedLimit = 20 #SPEEDLIMIT
 startTracker = {} #STORE STARTING TIME OF CARS
@@ -30,10 +30,13 @@ print('Speed Limit Set at 20 Kmph')
 
 
 def blackout(image):
-    xBlack = 360
-    yBlack = 300
-    triangle_cnt = np.array( [[0,0], [xBlack,0], [0,yBlack]] )
-    triangle_cnt2 = np.array( [[WIDTH,0], [WIDTH-xBlack,0], [WIDTH,yBlack]] )
+    
+    lu = 550
+    ld = 180
+    ru = 1100
+    rd = 780
+    triangle_cnt = np.array( [[0,0], [lu,0], [0,900+ld]] )
+    triangle_cnt2 = np.array( [[WIDTH,0], [WIDTH-ru,0], [WIDTH,rd]] )
     cv2.drawContours(image, [triangle_cnt], 0, (0,0,0), -1)
     cv2.drawContours(image, [triangle_cnt2], 0, (0,0,0), -1)
 
@@ -66,10 +69,10 @@ def trackMultipleObjects():
             break
 
         frameTime = time.time()
-        image = cv2.resize(image, (WIDTH, HEIGHT))[cropBegin:720,0:1280]
+        image = cv2.resize(image, (1500, 900))[cropBegin:HEIGHT,0:WIDTH]
         resultImage = blackout(image)
-        cv2.line(resultImage,(0,mark1),(1280,mark1),(0,0,255),2)
-        cv2.line(resultImage,(0,mark2),(1280,mark2),(0,0,255),2)
+        cv2.line(resultImage,(0,mark1),(WIDTH,mark1),(0,0,255),2)
+        cv2.line(resultImage,(0,mark2),(WIDTH,mark2),(0,0,255),2)
 
         frameCounter = frameCounter + 1
 
